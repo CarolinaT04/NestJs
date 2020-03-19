@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
+import { Module }           from '@nestjs/common';
 import { ClientController } from './client.controller';
-import { ClientService } from './client.service';
-import { MongooseModule} from '@nestjs/mongoose';
-import {ClienteSchema}  from './schemas/client.schemas';
+import { ClientService }    from './client.service';
+import { MongooseModule}    from '@nestjs/mongoose';
+import { ClientSchema }    from './schemas/client.schemas';
 @Module({
-  imports : [
+  imports    : [
    MongooseModule.forFeature([
-    {name : 'Client' , schema: ClienteSchema}  //Conexion con mongo db medinate schemas 
+     {name   : 'Client' , 
+      schema : ClientSchema }  //Conexion con mongo db mediante schemas 
    ])
   ],
-  controllers: [ClientController],
-  providers: [ClientService]
+  controllers:   [ClientController],
+  providers  :   [ClientService]
 })
 export class ClientModule {}

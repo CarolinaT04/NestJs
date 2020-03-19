@@ -8,6 +8,7 @@ export interface Client extends Document {
     readonly address    : string;
     readonly email      : string;
     readonly telefono   : string;
+    readonly categoryId : string;
 }
 
 //Para manejar lo que esta dentro del codigo

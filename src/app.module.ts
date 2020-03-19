@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ClientModule } from './client/client.module';
-import {MongooseModule}  from '@nestjs/mongoose';
+import { Module }          from '@nestjs/common';
+import { AppController }   from './app.controller';
+import { CategoryModule }  from './category/category.module';
+import { AuthModule }      from './auth/auth.module';
+import { UsersModule }     from './users/users.module';
+import { AppService }      from './app.service';
+import { ClientModule }    from './client/client.module';
+import { MongooseModule }  from '@nestjs/mongoose';
 
 
 @Module({
@@ -10,7 +13,10 @@ import {MongooseModule}  from '@nestjs/mongoose';
     ClientModule ,
     MongooseModule.forRoot('mongodb://localhost/client-nest', {
     useNewUrlPatser: true
-         })],
+         }),
+    CategoryModule,
+    AuthModule,
+    UsersModule],
   controllers: [AppController],
   providers:   [AppService]
 

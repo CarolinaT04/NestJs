@@ -1,6 +1,16 @@
-import { Controller , Get , Post , Put , Delete  , Res , HttpStatus, Body, Param, NotFoundException, Query} from '@nestjs/common';
-import { CreateClientDTO }                                                 from './dto/client.dto';
-import {ClientService} from './client.service';
+import { Controller , 
+         Get , 
+         Post , 
+         Put , 
+         Delete  , 
+         Res , 
+         HttpStatus, 
+         Body, 
+         Param, 
+         NotFoundException, 
+         Query}             from '@nestjs/common';
+import { CreateClientDTO }  from './dto/client.dto';
+import {ClientService}      from './client.service';
  
 @Controller('client')
 export class ClientController {
@@ -29,7 +39,7 @@ export class ClientController {
  @Get('/:clientId')
  async getClientById(@Res() res, @Param('clientId') clientId){
     const client = await this.clientService.getClient(clientId); 
-    if (!client) throw new NotFoundException('Product Does not exists');
+    if (!client) throw new NotFoundException('Client Does not exists');
      return res.status(HttpStatus.OK).json(client);
  }
 

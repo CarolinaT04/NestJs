@@ -5,5 +5,6 @@ export class CreateClientDTO {
     readonly address : string;
     readonly telephone : string;
     readonly email  : string;
+    readonly categoryId : string;
 
 }

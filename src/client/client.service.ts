@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import {Model} from 'mongoose'; //Definir un modelo de datos para consultar cosas 
-import {InjectModel} from '@nestjs/mongoose';
-import {Client}  from './interfaces/client.interfaces';
-import {CreateClientDTO} from './dto/client.dto'; // Para definir lo que se envie y recibe en la app 
+import { Injectable }    from '@nestjs/common';
+import {Model}           from 'mongoose'; //Definir un modelo de datos para consultar cosas 
+import {InjectModel}     from '@nestjs/mongoose';
+import {Client}          from './interfaces/client.interfaces';
+import {CreateClientDTO} from './dto/client.dto'; // Para definir lo que se envie y recibe en la app
+ 
 @Injectable()
 export class ClientService {
 
