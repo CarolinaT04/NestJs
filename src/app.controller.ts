@@ -5,16 +5,16 @@ import { AuthService }   from './auth/auth.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly authService: AuthService) {}
+  constructor() {}
 
   //Login 
-
+/*
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req ){
     return this.authService.login(req.user);
   }
-
+*/
   @UseGuards(JwtAuthGuard)
   @Post('profile')
   async getProfile(@Request() req ){

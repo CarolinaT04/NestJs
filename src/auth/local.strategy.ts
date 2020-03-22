@@ -1,28 +1,26 @@
-import  {Strategy} from 'passport-local';
-import {AuthService} from './auth.service';
-import {PassportStrategy} from '@nestjs/passport';
-import {Injectable , UnauthorizedException} from '@nestjs/common';
 
+import { Strategy }                          from 'passport-local';
+import { PassportStrategy }                  from '@nestjs/passport';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { AuthService }                       from './auth.service';
+import { User }                              from 'src/users/interfaces/users.interfaces';
+import { JwtPayload }                        from './interfaces/jwt-payload.interfaces';
 
 @Injectable()
-
 export class LocalStrategy extends PassportStrategy(Strategy) {
+  constructor(private authService: AuthService) {
+    super();
+  }
 
-    constructor (private authService : AuthService){
+  async validate(payload: JwtPayload){
 
-        super();
+    const user = await this.authService.validateUserByJwt(payload);
+
+    if(!user){
+        throw new UnauthorizedException();
     }
 
-    async validate(username : string , password : string): Promise<any> {
+    return user;
 
-        const user = await this.authService.validateUser(username , password);
-        if (!user) {
-
-            throw new UnauthorizedException('Error');
-        }
-
-        return user;
-    }
 }
-
-export class AuthModule {}
+}

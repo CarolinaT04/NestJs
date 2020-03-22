@@ -11,65 +11,46 @@ import { Controller ,
          Query }             from '@nestjs/common';
 import { CreateUserDTO}      from './dto/users.dto';
 import {UsersService}        from './users.service';
-import { async } from 'rxjs/internal/scheduler/async';
+
 
 @Controller('users')
 export class UsersController {
 
     constructor( private userService : UsersService){}
-/*
+
+    //The createPost is ejecute when the request Post is called
     @Post('/create')
     async createPost(@Res() res , @Body() createUserDTO : CreateUserDTO){
         const user = await this.userService.createUser(createUserDTO);
 
-        return res.status(HttpStatus.OK).json({
-
+        return res.status(HttpStatus.OK).json({   //If everything is OK ,  it sends a successfully message and return the data by a JSON
             message: 'User successfully created',
             user
         });
     }
   
+    //This getUser is ejectute when the request Get is called.
+    //List all the users
         @Get('/')
         async getUser(@Res() res ){
         const user = await this.userService.getUsers();
-        return res.status(HttpStatus.OK).json({
-
+        return res.status(HttpStatus.OK).json({  //If everithin is OK, it sends a successfully message and return the data by a JSON
             message: 'All Users',
             user
         });
         }
-          */
-    
-        @Get('/:username')
-        async findUser(@Res() res , @Param('username')username){
-            const user = await this.userService.findOne(username);
-            if(!user) throw new NotFoundException('User does not exists');
-            return res.status(HttpStatus.OK).json({
+          
+    //This findUser is ejecute when the request Get is called with the parameter email
+        @Get('/:email')
+        async findUser(@Res() res , @Param('email') email){
+            const user = await this.userService.findOneByEmail(email);
+            if(!user) throw new NotFoundException('User does not exist'); // This is a kind of validation... if the ID does not exist the data can be found
+            return res.status(HttpStatus.OK).json({                      //If everithin is OK, it sends a successfully message and return the data by a JSON
                 message: 'User found successfully',
                 user
 
             });
         }
-
-        /*
-        @Delete('/delete')
-        async deleteUser(@Res() res , @Query('userId') userId){
-            const user = await this.userService.deleteUser(userId);
-            if(!user) throw new NotFoundException('User does not exists');
-            return res.status(HttpStatus.OK).json({
-                message: 'User deleted successfully',
-                user
-            }) 
-        }
-            @Put('/update')
-            async updateUser(@Res() res , @Body() createUserDTO :CreateUserDTO , @Query('userId') userId){
-               const user = await this.userService.updateUser(userId , createUserDTO);
-               if (!user) throw new NotFoundException('User does not exists');
-               return res.status(HttpStatus.OK).json({
-                   message: 'User updated successfully',
-                   user
-               });
-            }
-            */
+        
         
 }

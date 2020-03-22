@@ -5,4 +5,4 @@ export interface Category extends Document {
     readonly description   : string;
 }
 
-//Para manejar lo que esta dentro del codigo
+//To manage what is inside the code
