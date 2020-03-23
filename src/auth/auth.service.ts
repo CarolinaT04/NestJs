@@ -66,7 +66,7 @@ export class AuthService {
             return {
                 
                 //Here are what user is gonna see when they successfully match
-                expiresIn: 3600,   
+                expiresIn: '1hr',   
                 token: jwt            
             }
 
