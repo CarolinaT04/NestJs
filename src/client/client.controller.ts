@@ -38,7 +38,7 @@ export class ClientController {
  @UseGuards(AuthGuard('jwt'))
  @Get('/')
  async getClient(@Res() res){
-    const  client = await this.clientService.getCategory();
+    const  client = await this.clientService.getClients();
     return res.status(HttpStatus.OK).json({ //If everything is OK , it sends a successfully message and return the data by a JSON
          message: 'All Clients',
          client
@@ -51,7 +51,9 @@ export class ClientController {
  async getClientById(@Res() res, @Param('clientId') clientId){
     const client = await this.clientService.getClient(clientId); 
     if (!client) throw new NotFoundException('Client Does not exist');//This is a kind of validation... if the ID does not exist the data can be found
-    return res.status(HttpStatus.OK).json({                             //If everything is OK , it sends a successfully message and return the data by a JSON
+    return res.status(HttpStatus.OK).json({                           //If everything is OK , it sends a successfully message and return the data by a JSON
+      message: 'Client successfully found',
+      client                           
   
  });
  

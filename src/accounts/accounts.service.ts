@@ -3,6 +3,7 @@ import { Model }             from 'mongoose';
 import { InjectModel }       from '@nestjs/mongoose'; //This import helps to create the model based on  the AccountSchema
 import { Account }           from './interfaces/accounts.interfaces';
 import { CreateAccountDTO }  from './dto/accounts.dto';
+import { MongoObjectID, strToMongoObjectID } from 'src/util/commons';
 
 @Injectable()
 export class AccountsService {
@@ -26,24 +27,31 @@ export class AccountsService {
     }
 
     //This method find one account by the ID
-    async getAccount(accountId: string): Promise<Account>{
+    async getAccount(_id: string | MongoObjectID): Promise<Account>{
 
-        const  accounts = await this.accountModel.findById(accountId);
+        const  accounts = await this.accountModel.findById 
+                                                ({ _id: typeof _id === "string" ?                               
+                                                strToMongoObjectID(_id) : _id });
         return accounts;
     }
 
     //This method update a specific account by the ID
     // The {new: true} get the new updated data
-    async updateAccount(accountId: string, createAccountDTO: CreateAccountDTO): Promise<Account>{
+    async updateAccount(_id: string, createAccountDTO: CreateAccountDTO): Promise<Account>{
 
-        const  accounts = await this.accountModel.findByIdAndUpdate(accountId , createAccountDTO, {new : true});
+        const  accounts = await this.accountModel.findByIdAndUpdate 
+                                                    ({ _id: typeof _id === "string" ?                               
+                                                    strToMongoObjectID(_id) : _id} , 
+                                                    createAccountDTO, {new : true});
         return accounts;
     }
 
     //This method delete the account by the ID
-    async deleteAccount(accountId: string): Promise<Account>{
+    async deleteAccount(_id: string | MongoObjectID): Promise<Account>{
 
-        const  accounts = await this.accountModel.findByIdAndDelete(accountId);
+        const  accounts = await this.accountModel.findByIdAndDelete 
+                                                    ({ _id: typeof _id === "string" ?                               
+                                                    strToMongoObjectID(_id) : _id });
         return accounts;
     }
 }

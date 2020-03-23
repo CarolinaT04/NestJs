@@ -24,22 +24,6 @@ export interface Client extends Document {
 export interface Service extends Document{
 
     serviceId : string,
-    history: {
-        comments: string,
-        status: Status,
-        date: Date
-    }[];
+    status    : String
 }
 
-/** 
-* This is a simple enum for the Status data
-*
-**/
-export enum Status{
-
-    PENDIENTE = "Pendiente",
-    EN_ESTUDIO= "En_Estudio",
-    APROVADO = "Aprobado",
-    RECHAZADO = "Rechazado"
-
-}

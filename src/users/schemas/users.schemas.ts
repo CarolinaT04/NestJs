@@ -4,10 +4,10 @@ import * as  bcrypt     from 'bcrypt';
 
 export const UserSchema  = new mongoose.Schema ({
    
-  username: { type: String, minlength:6 , maxlength:20,required: true},
-  email   : { type: String, minlength:10 , maxlength:20 ,unique: true, required: true},
-  password: { type: String, required: true},
-  roles   : { type: [String], default: ['user'], required: true},
+  username: { type: String,  minlength:6 ,  maxlength:50 ,required: [true , "Es necesario un username"]},
+  email   : { type: String,  minlength:10 , maxlength:30 ,unique: true, required: [true , "Es necesario un email"]},
+  password: { type: String,  required : [true , "Es necesario un password"]},
+  roles   : { type: [String],default  :  ['user'], required: true},
 
   });
 

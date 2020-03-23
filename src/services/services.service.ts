@@ -1,8 +1,9 @@
-import { Injectable }        from '@nestjs/common';
-import { Model }             from 'mongoose';
-import { InjectModel }       from '@nestjs/mongoose';
-import { Service }           from './interfaces/services.interfaces';
-import { CreateServiceDTO }  from './dto/services.dto';
+import { Injectable }                        from '@nestjs/common';
+import { Model }                             from 'mongoose';
+import { InjectModel }                       from '@nestjs/mongoose';
+import { Service }                           from './interfaces/services.interfaces';
+import { CreateServiceDTO }                  from './dto/services.dto';
+import { strToMongoObjectID, MongoObjectID } from 'src/util/commons';
 
 @Injectable()
 export class ServicesService {
@@ -23,20 +24,27 @@ export class ServicesService {
     }
 
     //This method find one service by the ID
-    async getService(serviceId : string): Promise<Service>{
-        const  service = await this.serviceModel.findById(serviceId);
+    async getService(_id : string | MongoObjectID): Promise<Service>{
+        const  service = await this.serviceModel.findById
+                                                    ({ _id: typeof _id === "string" ?                               
+                                                    strToMongoObjectID(_id) : _id });
         return service;
     }
 
     //This method update the service by The ID 
-    async updateService(serviceId : string , createServiceDTO: CreateServiceDTO): Promise<Service>{
-        const  service = await this.serviceModel.findByIdAndUpdate(serviceId, createServiceDTO, {new : true});
+    async updateService(_id : string | MongoObjectID , createServiceDTO: CreateServiceDTO): Promise<Service>{
+        const  service = await this.serviceModel.findByIdAndUpdate 
+                                                    ({ _id: typeof _id === "string" ?                               
+                                                    strToMongoObjectID(_id) : _id } , 
+                                                    createServiceDTO, {new : true});
         return service;
     }
 
     //This method delete the service by the ID
-    async deleteService(serviceId : string): Promise<Service>{
-        const  service = await this.serviceModel.findByIdAndDelete(serviceId);
+    async deleteService(_id : string): Promise<Service>{
+        const  service = await this.serviceModel.findByIdAndDelete
+                                                    ({ _id: typeof _id === "string" ?                               
+                                                    strToMongoObjectID(_id) : _id });
         return service;
     }
 }
