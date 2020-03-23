@@ -1,9 +1,3 @@
-/**
- * base-microservices -
- *
- * Initial version by: leonardom
- * Initial version created on: 02/18/19
- */
 
 import { ObjectID } from "mongodb";
 import { ObjectID as BSonObjectID } from "bson";
